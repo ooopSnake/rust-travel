@@ -10,7 +10,7 @@ macro_rules! const_count {
 }
 
 #[test]
-fn test_macro1(){
+fn test_macro1() {
     const CNT: usize = const_count![1,2,3,4,5,6];
     println!("cnt={}", CNT);
 }

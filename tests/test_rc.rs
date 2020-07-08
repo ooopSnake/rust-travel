@@ -4,8 +4,8 @@ use std::rc::Rc;
 #[test]
 fn test_rc() {
     let mut ggg = mem::ManuallyDrop::new(Box::new(111));
-    // explicit leak
-    //unsafe { mem::ManuallyDrop::drop(&mut ggg); }
+    // explicit drop
+    unsafe { mem::ManuallyDrop::drop(&mut ggg); }
     let r = Rc::new(123);
     let _x = r.clone();
     let _y = r.clone();

@@ -7,12 +7,9 @@ use std::cell::UnsafeCell;
 /// 2. repr=transparent表示其是一个透明层,内存布局与T一致
 ///     且其本身作为一个new type struct.相当于对T实现了相关扩展.
 ///
-///
-///
 struct CellV2<T> {
     value: UnsafeCell<T>
 }
-
 
 impl<T> CellV2<T> {
     fn new(v: T) -> Self where T: Copy {

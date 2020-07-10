@@ -9,7 +9,7 @@ enum Wrapper<T> {
 impl<T> Wrapper<T> {
     fn clear(&mut self) {
         match self {
-            Wrapper::Value(v) => {
+            Wrapper::Value(_) => {
                 *self = Empty
             }
             _ => {}

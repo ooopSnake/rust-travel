@@ -42,7 +42,7 @@ fn innocent(t: &Table) {
     let foo: isize = 1;
     // 得益于 UnsafeCell , 编译器可以确定的发现foo的生命周期不足
     // 编译失败
-    evil(t, &foo);
+    // evil(t, &foo); // 这句话会编译失败
 }
 
 #[test]

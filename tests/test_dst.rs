@@ -1,13 +1,32 @@
 use std::mem;
+use std::ops::Deref;
+
+// trait Beep {
+//
+// }
+//
+// impl<T> Beep for T where T: Bird {
+//     fn beep(&self) {
+//         self.fly();
+//         println!("beep after fly");
+//     }
+// }
+
 
 trait Bird {
     fn fly(&self);
-    fn beep(&self);
+    fn beep(&self) {
+        println!("beep")
+    }
 }
 
-struct Duck;
+struct Duck {
+    v1: i32
+}
 
-struct Swan;
+struct Swan {
+    v2: i64
+}
 
 impl Bird for Duck {
     fn fly(&self) {
@@ -15,17 +34,13 @@ impl Bird for Duck {
     }
 
     fn beep(&self) {
-        println!("beep! duck")
+        println!("duck beep")
     }
 }
 
 impl Bird for Swan {
     fn fly(&self) {
         println!("swan swan")
-    }
-
-    fn beep(&self) {
-        println!("beep swan")
     }
 }
 
@@ -47,7 +62,7 @@ fn print_trait_object(p: &dyn Bird) {
 
 #[test]
 fn test_dst() {
-    let duck = Duck;
+    let duck = Duck { v1: 111 };
     let p_duck = &duck;
     println!("size of Sized p_duck:{}", mem::size_of_val(&p_duck));
     // fat pointer
@@ -55,6 +70,7 @@ fn test_dst() {
     println!("size of ?Size dyn p_bird:{}", mem::size_of_val(&p_bird));
     // 获取函数地址
     let duck_fly: usize = Duck::fly as *const () as usize;
+    let duck_beep: usize = Duck::beep as *const () as usize;
     // 获取函数地址
     let swan_fly: usize = Swan::fly as *const () as usize;
     //
@@ -62,6 +78,6 @@ fn test_dst() {
     println!("Swan::fly 0x{:x}", swan_fly);
     //
     print_trait_object(p_bird);
-    let swan = Swan;
+    let swan = Swan { v2: 100 };
     print_trait_object(&swan as &dyn Bird);
 }

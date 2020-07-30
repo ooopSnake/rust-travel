@@ -1,5 +1,3 @@
-#![feature(fn_traits)]
-
 fn call<T, R>(f: T) -> R where T: FnOnce() -> R {
     f()
 }

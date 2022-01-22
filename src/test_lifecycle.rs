@@ -2,7 +2,7 @@ struct Parser<'a, 'b: 'a> {
     context: &'a Option<&'b str>,
 }
 
-impl<'a, 'b> Parser<'a, 'b> {
+impl<'a, 'b: 'a> Parser<'a, 'b> {
     fn parse(&self) -> &'a Option<&'b str> {
         self.context
     }

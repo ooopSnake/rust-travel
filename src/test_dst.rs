@@ -1,36 +1,31 @@
+//! 动态大小类型测试
+//!
+//! 观察dyn Trait的内存布局,以及数据排布
+
 use std::mem;
 use std::ops::Deref;
 
-// trait Beep {
-//
-// }
-//
-// impl<T> Beep for T where T: Bird {
-//     fn beep(&self) {
-//         self.fly();
-//         println!("beep after fly");
-//     }
-// }
-
-
+/// Bird tait
 trait Bird {
+    /// 必须由实现者提供
     fn fly(&self);
+
+    /// 带默认实现:输出beep
     fn beep(&self) {
         println!("beep")
     }
 }
 
-struct Duck {
-    v1: i32,
-}
+/// 修改了fly + beep
+struct Duck(i32);
 
-struct Swan {
-    v2: i64,
-}
+
+/// Swan 只修改了fly
+struct Swan(i32);
 
 impl Bird for Duck {
     fn fly(&self) {
-        println!("duck duck");
+        println!("can't fly");
     }
 
     fn beep(&self) {
@@ -46,6 +41,7 @@ impl Bird for Swan {
 
 /// 参数是 trait object 类型，p 是一个胖指针
 ///  `*const ()` 可以视为C/C++中的void*
+/// 用于输出trait的内存布局
 fn print_trait_object(p: &dyn Bird) {
 
     // 使用transmute执行强制类型转换，把变量p的内部数据取出来
@@ -67,7 +63,7 @@ fn print_trait_object(p: &dyn Bird) {
 
 #[test]
 fn test_dst() {
-    let duck = Duck { v1: 111 };
+    let duck = Duck(111);
     let p_duck = &duck;
     println!("size of Sized p_duck:{}", mem::size_of_val(&p_duck));
     // fat pointer
@@ -87,6 +83,6 @@ fn test_dst() {
     println!("Swan::beep 0x{:x}", swan_beep);
     //
     print_trait_object(p_bird);
-    let swan = Swan { v2: 100 };
+    let swan = Swan(100);
     print_trait_object(&swan as &dyn Bird);
 }

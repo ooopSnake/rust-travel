@@ -2,6 +2,33 @@
 
 //! 自定义Vec
 //! 知识点: ptr::drop_in_place, alloc::alloc/dealloc/Layout , NonNull
+//! ## Custom Vector in Rust
+//!
+//! |    Method    |              Doc               |
+//! |:------------:|:------------------------------:|
+//! |     push     |         append to tail         |
+//! |     pop      | remove and return last element |
+//! |     cap      |               -                |
+//! |     len      |               -                |
+//! | IntoIterator |        support iterator        |
+//!
+//! ```rust
+//! fn main() {
+//!     let mut arr = container::vec::Vector::new();
+//!     arr.push(0);
+//!     arr.push(1);
+//!     arr.push(2);
+//!     for it in &arr {
+//!         println!("- {}", it);
+//!     }
+//!     assert_eq!(*arr.get_ref(0), 0);
+//!     assert_eq!(*arr.get_ref(1), 1);
+//!     assert_eq!(*arr.get_ref(2), 2);
+//!     assert_eq!(arr.pop().unwrap(), 2);
+//!     assert_eq!(arr.pop().unwrap(), 1);
+//!     assert_eq!(arr.pop().unwrap(), 0);
+//! }
+//! ```
 
 use std::alloc::Layout;
 use std::borrow::Borrow;

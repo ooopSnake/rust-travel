@@ -1,3 +1,5 @@
+//! 自己动手,实现一个异步executor
+
 use std::future::Future;
 use std::marker::PhantomData;
 use std::ops::{Deref, DerefMut};

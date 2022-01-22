@@ -1,3 +1,6 @@
+//! 宏 知识点: [macro by example](https://doc.rust-lang.org/reference/macros-by-example.html),
+//! [macro quick book](https://www.bookstack.cn/read/DaseinPhaos-tlborm-chinese/README.md)
+
 macro_rules! to_unit_ref {
     ($($x:tt)*) =>(&());
 }

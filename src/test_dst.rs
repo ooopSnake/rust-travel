@@ -1,6 +1,8 @@
 //! 动态大小类型测试
 //!
 //! 观察dyn Trait的内存布局,以及数据排布
+//!
+//! 知识点: `trait object`, `fat pointer`
 
 use std::mem;
 use std::ops::Deref;

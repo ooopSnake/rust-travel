@@ -11,5 +11,5 @@ mod test_unsafe_cell;
 mod test_async_executor;
 
 fn main() {
-    println!("hello world")
+    println!("nothing is true,everything is permitted")
 }

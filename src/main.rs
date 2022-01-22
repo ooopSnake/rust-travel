@@ -9,6 +9,7 @@ mod test_macro;
 mod test_rc;
 mod test_unsafe_cell;
 mod test_async_executor;
+mod test_custom_vec;
 
 fn main() {
     println!("nothing is true,everything is permitted")

@@ -1,3 +1,5 @@
+#![allow(unused, unused_variables)]
+
 use std::cell::Cell;
 
 struct NoCopyFoo {

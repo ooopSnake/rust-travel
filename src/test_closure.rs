@@ -1,4 +1,3 @@
-#![feature(fn_traits)]
 //!
 //! # Rust 闭包的理解
 //! 好文推荐: <https://ioover.net/dev/rust-closure/>
@@ -32,8 +31,6 @@
 //! - 对于不会从closure结构体中转移的变量,实现`FnMut`
 //! - 对于不会修改匿名结构体中变量的closure实现`Fn`
 
-use std::borrow::BorrowMut;
-
 struct Foo(usize, usize);
 
 impl Foo {
@@ -56,7 +53,7 @@ impl Foo {
 #[test]
 fn test_fn_once() {
     let k = Foo(100, 200);
-    let mut g = || k.wtf_once();
+    let g = || k.wtf_once();
     println!("call 1:{}", g());
 }
 

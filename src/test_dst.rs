@@ -5,7 +5,6 @@
 //! 知识点: `trait object`, `fat pointer`
 
 use std::mem;
-use std::ops::Deref;
 
 /// Bird tait
 trait Bird {

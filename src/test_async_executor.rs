@@ -233,7 +233,8 @@ fn logic() {
     }
 }
 
-fn main() {
+#[test]
+fn test_async_executor() {
     logic();
     println!("exit")
 }

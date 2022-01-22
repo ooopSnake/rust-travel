@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 fn wtf() -> u8 {
     1
 }

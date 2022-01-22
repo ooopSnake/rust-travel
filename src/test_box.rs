@@ -1,4 +1,4 @@
-#![allow(unused, unused_variables)]
+#![allow(unused)]
 
 use std::cell::Cell;
 

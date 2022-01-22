@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 #[derive(Debug, PartialEq)]
 enum Wrapper<T> {
     Value(T),

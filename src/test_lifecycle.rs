@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 //! 知识点: `lifecycle annotation`, `generic with lifecycle`,
 //! [Higher-ranked trait bounds](https://doc.rust-lang.org/reference/trait-bounds.html#higher-ranked-trait-bounds)
 

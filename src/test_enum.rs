@@ -1,5 +1,3 @@
-use crate::Wrapper::Empty;
-
 #[derive(Debug, PartialEq)]
 enum Wrapper<T> {
     Value(T),
@@ -10,7 +8,7 @@ impl<T> Wrapper<T> {
     fn clear(&mut self) {
         match self {
             Wrapper::Value(_) => {
-                *self = Empty
+                *self = Self::Empty
             }
             _ => {}
         }

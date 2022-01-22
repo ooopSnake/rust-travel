@@ -21,11 +21,11 @@ trait Bird {
 }
 
 struct Duck {
-    v1: i32
+    v1: i32,
 }
 
 struct Swan {
-    v2: i64
+    v2: i64,
 }
 
 impl Bird for Duck {

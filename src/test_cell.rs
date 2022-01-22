@@ -4,7 +4,7 @@ use std::cell::UnsafeCell;
 struct Goods(i32);
 
 struct CustomCell<T> {
-    container: UnsafeCell<T>
+    container: UnsafeCell<T>,
 }
 
 impl<T> CustomCell<T> {

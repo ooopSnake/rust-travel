@@ -8,7 +8,7 @@ use std::cell::UnsafeCell;
 ///     且其本身作为一个new type struct.相当于对T实现了相关扩展.
 ///
 struct CellV2<T> {
-    value: UnsafeCell<T>
+    value: UnsafeCell<T>,
 }
 
 impl<T> CellV2<T> {
@@ -26,7 +26,7 @@ impl<T> CellV2<T> {
 }
 
 struct Table<'arg> {
-    cell: CellV2<&'arg isize>
+    cell: CellV2<&'arg isize>,
 }
 
 fn evil<'long>(t: &Table<'long>, s: &'long isize)

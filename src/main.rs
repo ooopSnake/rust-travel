@@ -8,6 +8,7 @@ mod test_lifecycle;
 mod test_macro;
 mod test_rc;
 mod test_unsafe_cell;
+mod test_async_executor;
 
 fn main() {
     println!("hello world")

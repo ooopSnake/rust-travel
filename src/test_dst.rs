@@ -55,8 +55,13 @@ fn print_trait_object(p: &dyn Bird) {
         // 使用as执行强制类型转换，将vtable从 `usize` 类型转为 `*const usize` 类型
         let v: *const usize = vtable as *const () as *const usize;
         // 打印出指针 v 指向的内存区间的值
-        println!("data in vtable [0x{:x}, 0x{:x}, 0x{:x}, 0x{:x}]",
-                 *v, *v.offset(1), *v.offset(2), *v.offset(3));
+        println!("data in vtable [0x{:x}, 0x{:x}, 0x{:x}, 0x{:x}, 0x{:x}]",
+                 *v, // destructor
+                 *v.offset(1),// size
+                 *v.offset(2),// align
+                 *v.offset(3),// fly
+                 *v.offset(4) // beep
+        );
     }
 }
 
@@ -73,9 +78,13 @@ fn test_dst() {
     let duck_beep: usize = Duck::beep as *const () as usize;
     // 获取函数地址
     let swan_fly: usize = Swan::fly as *const () as usize;
+    let swan_beep: usize = Swan::beep as *const () as usize;
     //
     println!("Duck::fly 0x{:x}", duck_fly);
     println!("Swan::fly 0x{:x}", swan_fly);
+    //
+    println!("Duck::beep 0x{:x}", duck_beep);
+    println!("Swan::beep 0x{:x}", swan_beep);
     //
     print_trait_object(p_bird);
     let swan = Swan { v2: 100 };

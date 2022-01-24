@@ -209,10 +209,17 @@ async fn worker() {
 }
 
 fn logic() {
+    let stop_flag = Arc::new(AtomicBool::new(false));
     let fut: RefMem<dyn Future<Output=()>> = RefMem::new(
         Box::new(worker()));
     let (sender, receiver) = mpsc::channel();
     sender.send(fut).unwrap();
+    let cloned_stop_flag = stop_flag.clone();
+    sender.send(RefMem::new(
+        Box::new(async move {
+            mdelay(5).await;
+            cloned_stop_flag.store(true, Ordering::Relaxed);
+        }))).unwrap();
     let mut loop_idx = 0;
     loop {
         loop_idx += 1;
@@ -231,6 +238,9 @@ fn logic() {
             println!("----------------> pending");
         } else {
             println!("----------------> ready");
+        }
+        if stop_flag.load(Ordering::Relaxed) {
+            break;
         }
     }
 }

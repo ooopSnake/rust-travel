@@ -42,7 +42,7 @@ fn test_mut_borrow() {
 
 #[test]
 fn test_cell() {
-    let mut c = cell::Cell::new(Goods(0));
+    let mut c = std::cell::Cell::new(Goods(0));
     let c1 = c.get_mut();
     (*c1).0 = 200;
     let c2 = c.get_mut();

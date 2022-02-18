@@ -15,6 +15,12 @@ impl FromSomething for () {
     }
 }
 
+impl FromSomething for String {
+    fn from_sth(name: &str) -> Self {
+        name.into()
+    }
+}
+
 macro_rules! def_data {
     ($($t:ident),*) => {
         $(
@@ -29,7 +35,7 @@ macro_rules! def_data {
     };
 }
 
-def_data!(SourceData,Data0,Data1,Data2,Data3);
+def_data!(Data0,Data1,Data2,Data3);
 
 trait FnWrapper<T, R> {
     fn call(&self, _: T) -> R;
@@ -110,8 +116,8 @@ fn do_work1(d0: Data0) -> std::io::Result<i32> {
 }
 
 
-fn do_work2(d0: Data0, d1: Data1) -> std::io::Result<i32> {
-    println!("do_work2: d0:{:?},d1:{:?}", d0, d1);
+fn do_work2(d0: Data0, d1: Data3, d2: Data2, s: String) -> std::io::Result<i32> {
+    println!("do_work2: d0:{:?},d1:{:?},d2:{:?},s:{}", d0, d1, d2, s);
     Ok(0)
 }
 

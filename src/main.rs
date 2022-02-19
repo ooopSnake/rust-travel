@@ -12,6 +12,7 @@ mod test_unsafe_cell;
 mod test_async_executor;
 mod test_custom_vec;
 mod test_actix_web_route;
+mod test_fill_default;
 
 fn main() {
     println!("nothing is true,everything is permitted")

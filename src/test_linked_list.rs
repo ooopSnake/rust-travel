@@ -1,5 +1,6 @@
 #![allow(unused)]
 
+use std::marker::PhantomData;
 use std::ptr::NonNull;
 
 #[derive(Debug)]
@@ -106,6 +107,36 @@ impl<T> LinkedList<T> {
             Some(v)
         }
     }
+
+    pub fn iter(&self) -> Iter<'_, T> {
+        Iter {
+            pos: self.head,
+            _marker: Default::default(),
+        }
+    }
+}
+
+pub struct Iter<'a, T: 'a> {
+    pos: Option<NonNull<Entry<T>>>,
+    _marker: PhantomData<&'a T>,
+}
+
+impl<'a, T> Iterator for Iter<'a, T> {
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.pos {
+            None => { None }
+            Some(pos) if pos.as_ptr().is_null() => { None }
+            Some(pos) => {
+                unsafe {
+                    let v = &(*pos.as_ptr()).value;
+                    self.pos = (*pos.as_ptr()).next;
+                    Some(v)
+                }
+            }
+        }
+    }
 }
 
 
@@ -125,6 +156,17 @@ mod test {
         assert_eq!(ll.pop_back().unwrap().value, 6);
         assert_eq!(ll.pop_back().unwrap().value, 5);
         assert!(ll.pop_back().is_none());
+    }
+
+    #[test]
+    fn test_iter() {
+        let mut ll = LinkedList::new();
+        for i in 1..10 {
+            ll.push_back(i)
+        }
+        for it in ll.iter() {
+            println!("ele:{}", it)
+        }
     }
 
     #[test]

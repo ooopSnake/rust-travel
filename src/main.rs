@@ -13,6 +13,7 @@ mod test_async_executor;
 mod test_custom_vec;
 mod test_actix_web_route;
 mod test_fill_default;
+mod test_linked_list;
 
 fn main() {
     println!("nothing is true,everything is permitted")

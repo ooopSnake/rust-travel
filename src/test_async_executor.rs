@@ -103,7 +103,7 @@ impl LocalWaker {
         let walker = &mut *(data as *mut LocalWaker);
         println!("clone:{}", &walker.name);
         LocalWaker {
-            name: format!("  **cloned** from: [{}]", &walker.name).to_string(),
+            name: format!("  **cloned** from: [{}]", &walker.name),
             send: walker.send.clone(),
             f: walker.f.clone(),
         }.into()
@@ -139,20 +139,22 @@ impl LocalWaker {
     }
 }
 
-impl Into<RawWaker> for LocalWaker {
-    fn into(self) -> RawWaker {
-        let p = Box::leak(Box::new(self)) as *mut Self;
+
+impl From<LocalWaker> for RawWaker {
+    fn from(lw: LocalWaker) -> Self {
+        let p = Box::leak(Box::new(lw)) as *mut LocalWaker;
         RawWaker::new(p as *const (), LocalWaker::make_vt())
     }
 }
 
-impl Into<Waker> for LocalWaker {
-    fn into(self) -> Waker {
+impl From<LocalWaker> for Waker {
+    fn from(me: LocalWaker) -> Self {
         unsafe {
-            Waker::from_raw(Into::<RawWaker>::into(self))
+            Waker::from_raw(me.into())
         }
     }
 }
+
 
 struct Delay {
     n: Duration,
@@ -174,7 +176,7 @@ impl Future for Delay {
             let waker = cx.waker().clone();
             let (flag, dur) = (
                 self.finished.clone(),
-                self.n.clone());
+                self.n);
             std::thread::spawn(move || {
                 std::thread::sleep(dur);
                 flag.as_ref().store(true, Ordering::Relaxed);
@@ -198,7 +200,7 @@ fn mdelay(nsec: u64) -> Delay {
 
 async fn heavy_calc_task() -> i32 {
     mdelay(2).await;
-    return 100;
+    100
 }
 
 async fn worker() {
@@ -225,7 +227,7 @@ fn logic() {
         loop_idx += 1;
         let x = receiver.recv().unwrap();
         let walk = LocalWaker {
-            name: format!(" [loop::{}]", loop_idx).into(),
+            name: format!(" [loop::{}]", loop_idx),
             send: sender.clone(),
             f: x,
         };

@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 //! 本模块模仿actix-web的Route::to函数
 //! Route::to 能够接受任意一个函数作为路由处理器
 //! 并且函数的参数可以是`任意顺序`的actix-web/types模块下的类型
@@ -10,9 +12,7 @@ trait FromSomething {
 }
 
 impl FromSomething for () {
-    fn from_sth(_name: &str) -> () {
-        ()
-    }
+    fn from_sth(_name: &str) {}
 }
 
 impl FromSomething for String {

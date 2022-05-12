@@ -34,6 +34,7 @@ use std::alloc::Layout;
 use std::borrow::Borrow;
 use std::marker::PhantomData;
 use std::ops::Deref;
+use std::ptr;
 use std::ptr::NonNull;
 
 pub struct Vector<T> {
@@ -78,7 +79,9 @@ impl<T> Deref for Vector<T> {
     type Target = [T];
 
     fn deref(&self) -> &Self::Target {
-        self.borrow()
+        unsafe {
+            &*ptr::slice_from_raw_parts(self.ptr.as_ptr(), self.len)
+        }
     }
 }
 

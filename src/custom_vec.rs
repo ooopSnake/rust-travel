@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 //! 自定义Vec
 //! 知识点: ptr::drop_in_place, alloc::alloc/dealloc/Layout , NonNull
 //! ## Custom Vector in Rust

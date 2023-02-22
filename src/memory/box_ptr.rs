@@ -1,4 +1,13 @@
-#![allow(unused)]
+//!
+//! Box
+//! 1. 会被编译器优化为指针
+//! 2. 如Cell不同的是,Cell可以在自身为不可变借用时,修改指针内部内容,而Box不可以
+//! 3. Box是Unique的new type struct类型
+//! 4. Unique具备rustc_layout_scalar_valid_range_start(1),其大小等于
+//!     其第一个属性 pointer: *const T
+//! 5. Unique 被标记为 `#[repr(transparent)]`
+//! 6. 第4点+第5点,是Box能被优化为一个指针的原理
+//!
 
 use std::cell::Cell;
 
@@ -7,16 +16,6 @@ struct NoCopyFoo {
     y: usize,
 }
 
-///
-/// Box
-/// 1. 会被编译器优化为指针
-/// 2. 如Cell不同的是,Cell可以在自身为不可变借用时,修改指针内部内容,而Box不可以
-/// 3. Box是Unique的new type struct类型
-/// 4. Unique具备rustc_layout_scalar_valid_range_start(1),其大小等于
-///     其第一个属性 pointer: *const T
-/// 5. Unique 被标记为 [repr(transparent)]
-/// 6. 第4点+第5点,是Box能被优化为一个指针的原理
-///
 #[test]
 fn test_box() {
     // new 参数的所有权被转移到Box中

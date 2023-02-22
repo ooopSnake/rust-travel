@@ -1,11 +1,12 @@
-#![allow(unused)]
-
-//! 动态大小类型测试
 //!
-//! 观察dyn Trait的内存布局,以及数据排布
 //!
-//! 知识点: `trait object`, `fat pointer`
-
+//!
+//! # 动态大小类型
+//! 1. 观察dyn Trait的内存布局,以及数据排布
+//! 2. 知识点: `trait object`, `fat pointer`
+//!
+//! tips: 与动态类型对应的是FST (fixed size type)
+//!
 use std::mem;
 
 /// Bird tait

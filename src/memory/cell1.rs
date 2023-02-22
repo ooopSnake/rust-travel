@@ -4,18 +4,18 @@ use std::rc::Rc;
 
 ///
 /// std::cell::Cell 的set方法:先对旧值replace,然后再 drop 引起了我都兴趣
-/// https://github.com/rust-lang/rfcs/pull/1651#issuecomment-226927741
+/// <https://github.com/rust-lang/rfcs/pull/1651#issuecomment-226927741>
 ///
 /// stackoverflow 也有人提及
-/// https://stackoverflow.com/questions/74123700/why-does-set-method-defined-on-cellt-explicitly-drops-the-old-value-rust
+/// <https://stackoverflow.com/questions/74123700/why-does-set-method-defined-on-cellt-explicitly-drops-the-old-value-rust>
 ///
 /// 老版本的rust对set实现如下:
 /// ```rust
 ///    pub fn set(&self, value: T) {
-//         unsafe {
-//             *self.value.get() = value; // 这里会先原地析构旧值,再将新值移动到旧值的空间
-//         }
-//     }
+///         unsafe {
+///             *self.value.get() = value; // 这里会先原地析构旧值,再将新值移动到旧值的空间
+///         }
+///     }
 /// ```
 ///
 /// 有人在issue中构建了一个循环引用结构体,用来触发这个bug
@@ -35,6 +35,12 @@ impl Drop for Evil {
 
 #[test]
 pub fn test_evil_cell() {
+    let mut x: Option<String> = Some("hey".to_owned());
+    assert_eq!(x.as_deref_mut().map(|x| {
+        x.make_ascii_uppercase();
+        x
+    }), Some("HEY".to_owned().as_mut_str()));
+
     let mut a = Rc::new(Cell::new(None));
     println!("1 strong:{},weak:{}", Rc::strong_count(&a), Rc::weak_count(&a));
 

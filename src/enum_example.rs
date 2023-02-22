@@ -1,4 +1,5 @@
-#![allow(unused)]
+//!
+//! enum 练习
 
 #[derive(Debug, PartialEq)]
 enum Wrapper<T> {

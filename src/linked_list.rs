@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 use std::marker::PhantomData;
 use std::ptr::NonNull;
 
@@ -142,7 +140,7 @@ impl<'a, T> Iterator for Iter<'a, T> {
 
 #[cfg(test)]
 mod test {
-    use crate::test_linked_list::LinkedList;
+    use super::LinkedList;
 
     #[test]
     fn test_push_pop() {

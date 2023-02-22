@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 //!
 //! # Rust 闭包的理解
 //! 好文推荐: <https://ioover.net/dev/rust-closure/>

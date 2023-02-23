@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 //! 自己动手,实现一个异步executor
 
 use std::future::Future;
@@ -139,7 +137,6 @@ impl LocalWaker {
     }
 }
 
-
 impl From<LocalWaker> for RawWaker {
     fn from(lw: LocalWaker) -> Self {
         let p = Box::leak(Box::new(lw)) as *mut LocalWaker;
@@ -154,7 +151,6 @@ impl From<LocalWaker> for Waker {
         }
     }
 }
-
 
 struct Delay {
     n: Duration,

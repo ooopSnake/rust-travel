@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 use std::cell::UnsafeCell;
 
 struct Goods(i32);

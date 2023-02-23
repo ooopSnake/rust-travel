@@ -14,8 +14,6 @@ impl Drop for Data {
     }
 }
 
-
-
 /// 直接赋值 x = y; 生成的汇编中:
 /// 首先mem::drop_in_place(x); 再将y的值写入到x中
 /// 等同于下面的这段代码:

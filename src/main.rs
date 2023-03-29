@@ -1,7 +1,6 @@
-/*!
-Rust Travel,记录Rust学习之旅.
- */
+//!Rust Travel,记录Rust学习之旅.
 #![allow(unused)]
+
 pub mod assign;
 pub mod mod_example;
 pub mod closure;
@@ -14,6 +13,7 @@ pub mod custom_vec;
 pub mod actix_web_route;
 pub mod fill_default;
 pub mod linked_list;
+pub mod compile_features;
 pub mod gat;
 pub mod doc;
 pub mod memory;

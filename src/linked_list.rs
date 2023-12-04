@@ -125,7 +125,6 @@ impl<'a, T> Iterator for Iter<'a, T> {
     fn next(&mut self) -> Option<Self::Item> {
         match self.pos {
             None => { None }
-            Some(pos) if pos.as_ptr().is_null() => { None }
             Some(pos) => {
                 unsafe {
                     let v = &(*pos.as_ptr()).value;

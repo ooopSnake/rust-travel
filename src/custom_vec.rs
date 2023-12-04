@@ -137,8 +137,7 @@ impl<T> Vector<T> {
     /// safety: Vector not impl Send or Syn
     pub fn get_ref(&self, idx: usize) -> &T {
         unsafe {
-            let mut_self = std::mem::transmute::<*const Self, *mut Self>(self);
-            Self::get_mut_ref(&mut *mut_self, idx)
+            &*self.ptr.as_ptr().add(idx)
         }
     }
 
